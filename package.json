@@ -1,0 +1,10 @@
+{
+  "name": "ecommerce-nodejs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server/src/index.js",
+    "dev": "nodemon server/src/index.js",
+    "client": "cd client && npm run dev"
+  }
+}
