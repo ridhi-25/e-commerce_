@@ -121,7 +121,7 @@ export default function Admin() {
                     <tr key={order._id}>
                       <td style={{ fontFamily: 'monospace', fontWeight: 600, color: '#a5b4fc' }}>#{order._id.slice(-6).toUpperCase()}</td>
                       <td>{order.userId?.username || 'Unknown'}</td>
-                      <td style={{ fontWeight: 600 }}>${order.total.toFixed(2)}</td>
+                      <td style={{ fontWeight: 600 }}>₹{order.total.toFixed(2)}</td>
                       <td>
                         <span style={{ 
                           padding: '4px 8px', 
@@ -189,7 +189,7 @@ export default function Admin() {
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Price ($)</label>
+                <label className="form-label">Price (₹)</label>
                 <input
                   type="number"
                   placeholder="0.00"
@@ -238,7 +238,7 @@ export default function Admin() {
                         <span style={{ fontWeight: 600 }}>{prod.name}</span>
                       </div>
                     </td>
-                    <td>${prod.price.toFixed(2)}</td>
+                    <td>₹{prod.price.toFixed(2)}</td>
                     <td>
                       <button 
                         onClick={() => handleDeleteProduct(prod._id)} 

@@ -88,7 +88,7 @@ export default function Cart({ onCheckout }) {
                         <span style={{ fontWeight: 600 }}>{item.productId.name}</span>
                       </div>
                     </td>
-                    <td>${item.price.toFixed(2)}</td>
+                    <td>₹{item.price.toFixed(2)}</td>
                     <td style={{ color: 'var(--text-secondary)' }}>{item.quantity}</td>
                     <td>
                       <button onClick={() => handleRemove(item.productId._id)} className="btn btn-danger" style={{ padding: '6px 12px', fontSize: 12, borderRadius: 6 }}>
@@ -105,7 +105,7 @@ export default function Cart({ onCheckout }) {
             <div>
               <span style={{ color: 'var(--text-secondary)', fontSize: 14, textTransform: 'uppercase', letterSpacing: 0.5 }}>Estimated Total</span>
               <h3 style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginTop: 5 }}>
-                ${cart.total ? cart.total.toFixed(2) : '0.00'}
+                ₹{cart.total ? cart.total.toFixed(2) : '0.00'}
               </h3>
             </div>
             <div style={{ display: 'flex', gap: 15 }}>

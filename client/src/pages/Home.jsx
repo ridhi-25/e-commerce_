@@ -34,7 +34,7 @@ export default function Home({ onAddToCart }) {
           Discover the handcrafted collection of premium apparel, engineered sneakers, and heritage accessories designed for the modern avant-garde.
         </p>
         <div style={{ display: 'inline-flex', padding: '6px 18px', background: 'rgba(99, 102, 241, 0.1)', borderRadius: 50, border: '1px solid rgba(99, 102, 241, 0.2)', fontSize: 13, color: '#a5b4fc', fontWeight: 600 }}>
-          ✨ Free shipping on all orders over $150
+          ✨ Free shipping on all orders over ₹2,999
         </div>
       </div>
 
@@ -56,7 +56,7 @@ export default function Home({ onAddToCart }) {
             <h3 className="product-title" style={{ fontSize: 17, marginBottom: 6 }}>{p.name}</h3>
             <p className="product-desc" style={{ fontSize: 13.5, marginBottom: 18, color: 'var(--text-secondary)' }}>{p.description}</p>
             <div className="product-footer">
-              <span className="product-price" style={{ fontSize: 19, fontWeight: 800 }}>${p.price.toFixed(2)}</span>
+              <span className="product-price" style={{ fontSize: 19, fontWeight: 800 }}>₹{p.price.toFixed(2)}</span>
               <button
                 onClick={() => onAddToCart(p._id, 1)}
                 className="btn btn-primary"
