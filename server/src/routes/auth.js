@@ -57,7 +57,16 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   if (req.session.userId) {
     User.findById(req.session.userId).then(user => {
-      res.json({ user: { _id: user._id, username: user.username, email: user.email, role: user.role } });
+      if (user) {
+        res.json({ user: { _id: user._id, username: user.username, email: user.email, role: user.role } });
+      } else {
+        // User not found in DB (e.g. database reseeded), destroy session
+        req.session.destroy(() => {
+          res.json({ user: null });
+        });
+      }
+    }).catch(err => {
+      res.json({ user: null });
     });
   } else {
     res.json({ user: null });
