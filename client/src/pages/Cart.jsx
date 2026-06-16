@@ -76,7 +76,18 @@ export default function Cart({ onCheckout }) {
               <tbody>
                 {cart.items.map(item => (
                   <tr key={item.productId._id}>
-                    <td style={{ fontWeight: 600 }}>{item.productId.name}</td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+                        {item.productId.image && (
+                          <img 
+                            src={item.productId.image} 
+                            alt={item.productId.name} 
+                            style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 8, border: '1px solid var(--border-color)' }}
+                          />
+                        )}
+                        <span style={{ fontWeight: 600 }}>{item.productId.name}</span>
+                      </div>
+                    </td>
                     <td>${item.price.toFixed(2)}</td>
                     <td style={{ color: 'var(--text-secondary)' }}>{item.quantity}</td>
                     <td>

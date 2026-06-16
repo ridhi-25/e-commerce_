@@ -15,11 +15,41 @@ async function seed() {
 
   // Seed products
   const products = [
-    { name: 'T-Shirt', description: 'Comfortable cotton t-shirt', price: 19.99, inStock: true },
-    { name: 'Sneakers', description: 'Stylish running sneakers', price: 49.99, inStock: true },
-    { name: 'Hat', description: 'Cool baseball cap', price: 12.50, inStock: true },
-    { name: 'Jeans', description: 'Classic blue jeans', price: 39.99, inStock: true },
-    { name: 'Jacket', description: 'Warm winter jacket', price: 79.99, inStock: true }
+    { 
+      name: 'Minimalist Cotton Tee', 
+      description: 'Ultra-soft organic cotton tee crafted for comfort, styled with a modern tailored silhouette.', 
+      price: 29.99, 
+      image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80',
+      inStock: true 
+    },
+    { 
+      name: 'Vanguard Running Sneakers', 
+      description: 'Responsive cushioning and aerodynamic grip designed for peak performance and sleek athletic style.', 
+      price: 119.99, 
+      image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop&q=80',
+      inStock: true 
+    },
+    { 
+      name: 'Heritage Wool Cap', 
+      description: 'Structured profile made of refined wool blend with adjustable leather clasp strap.', 
+      price: 34.50, 
+      image: 'https://images.unsplash.com/photo-1534215754734-18e55d13ce35?w=600&auto=format&fit=crop&q=80',
+      inStock: true 
+    },
+    { 
+      name: 'Raw Selvedge Denim Jeans', 
+      description: 'Premium raw indigo selvedge jeans designed to mold uniquely to your shape over time.', 
+      price: 89.99, 
+      image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=80',
+      inStock: true 
+    },
+    { 
+      name: 'Classic Biker Leather Jacket', 
+      description: 'Full-grain lambskin leather jacket featuring metal hardware zippers and a tailored quilted lining.', 
+      price: 249.99, 
+      image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&auto=format&fit=crop&q=80',
+      inStock: true 
+    }
   ];
   await Product.insertMany(products);
   console.log('Seeded products');

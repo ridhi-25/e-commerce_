@@ -41,7 +41,7 @@ export default function App() {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: 20 }}>
         <div className="glass-panel" style={{ maxWidth: 450, width: '100%', textAlign: 'center' }}>
-          <h1 style={{ marginBottom: 15, background: 'linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AuraShop</h1>
+          <h1 style={{ marginBottom: 15, background: 'linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', letterSpacing: '-1px' }}>Aether Vanguard</h1>
           <p style={{ color: 'var(--text-secondary)', marginBottom: 30, fontSize: 16 }}>Your premium destination for style and comfort.</p>
           <div style={{ display: 'flex', gap: 15, justifyContent: 'center', marginBottom: 20 }}>
             <button className={`btn ${page === 'login' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setPage('login')} style={{ flex: 1 }}>Sign In</button>
@@ -58,7 +58,7 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', paddingBottom: 60 }}>
       <nav className="navbar">
-        <div className="nav-brand" style={{ cursor: 'pointer' }} onClick={() => setPage('home')}>AuraShop</div>
+        <div className="nav-brand" style={{ cursor: 'pointer' }} onClick={() => setPage('home')}>Aether Vanguard</div>
         <div className="nav-links">
           <button onClick={() => setPage('home')} className={`nav-btn ${page === 'home' ? 'active' : ''}`}>Shop</button>
           <button onClick={() => setPage('cart')} className={`nav-btn ${page === 'cart' ? 'active' : ''}`}>Cart</button>

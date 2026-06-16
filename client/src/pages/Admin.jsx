@@ -4,7 +4,7 @@ export default function Admin() {
   const [orders, setOrders] = useState([])
   const [products, setProducts] = useState([])
   const [tab, setTab] = useState('orders')
-  const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '' })
+  const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '', image: '' })
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function Admin() {
         body: JSON.stringify({ ...newProduct, price: parseFloat(newProduct.price) })
       })
       if (res.ok) {
-        setNewProduct({ name: '', description: '', price: '' })
+        setNewProduct({ name: '', description: '', price: '', image: '' })
         setError('')
         const data = await res.json()
         setProducts([...products, data])
@@ -188,7 +188,7 @@ export default function Admin() {
                   style={{ minHeight: 80, resize: 'vertical' }}
                 />
               </div>
-              <div className="form-group" style={{ marginBottom: 25 }}>
+              <div className="form-group">
                 <label className="form-label">Price ($)</label>
                 <input
                   type="number"
@@ -196,6 +196,16 @@ export default function Admin() {
                   step="0.01"
                   value={newProduct.price}
                   onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+                  className="form-input"
+                />
+              </div>
+              <div className="form-group" style={{ marginBottom: 25 }}>
+                <label className="form-label">Image URL</label>
+                <input
+                  type="text"
+                  placeholder="https://example.com/image.jpg"
+                  value={newProduct.image}
+                  onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
                   className="form-input"
                 />
               </div>
@@ -216,7 +226,18 @@ export default function Admin() {
               <tbody>
                 {products.map(prod => (
                   <tr key={prod._id}>
-                    <td style={{ fontWeight: 600 }}>{prod.name}</td>
+                    <td>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
+                        {prod.image && (
+                          <img 
+                            src={prod.image} 
+                            alt={prod.name} 
+                            style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 6, border: '1px solid var(--border-color)' }}
+                          />
+                        )}
+                        <span style={{ fontWeight: 600 }}>{prod.name}</span>
+                      </div>
+                    </td>
                     <td>${prod.price.toFixed(2)}</td>
                     <td>
                       <button 
