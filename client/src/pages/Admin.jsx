@@ -74,110 +74,164 @@ export default function Admin() {
   }
 
   return (
-    <div>
-      <h1>Admin Panel</h1>
-      <div style={{ marginBottom: 20 }}>
-        <button onClick={() => setTab('orders')} style={{ marginRight: 10, padding: 10, backgroundColor: tab === 'orders' ? '#007bff' : '#ddd', color: tab === 'orders' ? 'white' : 'black' }}>Orders</button>
-        <button onClick={() => setTab('products')} style={{ padding: 10, backgroundColor: tab === 'products' ? '#007bff' : '#ddd', color: tab === 'products' ? 'white' : 'black' }}>Products</button>
+    <div className="glass-panel" style={{ maxWidth: 1000, margin: '20px auto' }}>
+      <h1 style={{ marginBottom: 25 }}>Administrator Dashboard</h1>
+      <div style={{ display: 'flex', gap: 15, marginBottom: 30 }}>
+        <button 
+          onClick={() => setTab('orders')} 
+          className={`btn ${tab === 'orders' ? 'btn-primary' : 'btn-secondary'}`}
+          style={{ padding: '10px 20px', borderRadius: 8 }}
+        >
+          Manage Orders
+        </button>
+        <button 
+          onClick={() => setTab('products')} 
+          className={`btn ${tab === 'products' ? 'btn-primary' : 'btn-secondary'}`}
+          style={{ padding: '10px 20px', borderRadius: 8 }}
+        >
+          Manage Products
+        </button>
       </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && (
+        <div style={{ backgroundColor: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: 12, borderRadius: 8, marginBottom: 25, fontSize: 14 }}>
+          {error}
+        </div>
+      )}
 
       {tab === 'orders' && (
         <div>
-          <h2>Orders</h2>
+          <h2 style={{ fontSize: 20, marginBottom: 15, color: 'var(--text-secondary)' }}>Customer Orders</h2>
           {orders.length === 0 ? (
-            <p>No orders yet</p>
+            <p style={{ color: 'var(--text-secondary)' }}>No orders have been placed yet.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr style={{ borderBottom: '2px solid #ddd' }}>
-                  <th style={{ textAlign: 'left', padding: 10 }}>Order ID</th>
-                  <th style={{ textAlign: 'left', padding: 10 }}>Customer</th>
-                  <th style={{ textAlign: 'left', padding: 10 }}>Total</th>
-                  <th style={{ textAlign: 'left', padding: 10 }}>Status</th>
-                  <th style={{ textAlign: 'left', padding: 10 }}>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map(order => (
-                  <tr key={order._id} style={{ borderBottom: '1px solid #eee' }}>
-                    <td style={{ padding: 10 }}>{order._id.slice(-6)}</td>
-                    <td style={{ padding: 10 }}>{order.userId.username}</td>
-                    <td style={{ padding: 10 }}>${order.total.toFixed(2)}</td>
-                    <td style={{ padding: 10 }}>{order.status}</td>
-                    <td style={{ padding: 10 }}>
-                      <select onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)} value={order.status}>
-                        <option value="pending">Pending</option>
-                        <option value="shipped">Shipped</option>
-                        <option value="delivered">Delivered</option>
-                      </select>
-                    </td>
+            <div className="table-container">
+              <table className="custom-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {orders.map(order => (
+                    <tr key={order._id}>
+                      <td style={{ fontFamily: 'monospace', fontWeight: 600, color: '#a5b4fc' }}>#{order._id.slice(-6).toUpperCase()}</td>
+                      <td>{order.userId?.username || 'Unknown'}</td>
+                      <td style={{ fontWeight: 600 }}>${order.total.toFixed(2)}</td>
+                      <td>
+                        <span style={{ 
+                          padding: '4px 8px', 
+                          borderRadius: 6, 
+                          fontSize: 12, 
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          backgroundColor: order.status === 'delivered' ? 'rgba(16, 185, 129, 0.15)' : order.status === 'shipped' ? 'rgba(99, 102, 241, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                          color: order.status === 'delivered' ? 'var(--success-color)' : order.status === 'shipped' ? 'var(--primary-color)' : '#f59e0b'
+                        }}>
+                          {order.status}
+                        </span>
+                      </td>
+                      <td>
+                        <select 
+                          onChange={(e) => handleUpdateOrderStatus(order._id, e.target.value)} 
+                          value={order.status}
+                          style={{
+                            background: 'rgba(15, 23, 42, 0.8)',
+                            color: 'var(--text-primary)',
+                            border: '1px solid var(--border-color)',
+                            padding: '6px 10px',
+                            borderRadius: 6,
+                            outline: 'none',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          <option value="pending">Pending</option>
+                          <option value="shipped">Shipped</option>
+                          <option value="delivered">Delivered</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       )}
 
       {tab === 'products' && (
         <div>
-          <h2>Products</h2>
-          <div style={{ marginBottom: 30, padding: 20, border: '1px solid #ddd', borderRadius: 8 }}>
-            <h3>Add New Product</h3>
+          <div style={{ marginBottom: 35, padding: 25, background: 'rgba(15, 23, 42, 0.4)', border: '1px solid var(--border-color)', borderRadius: 12 }}>
+            <h3 style={{ marginBottom: 20 }}>Add New Product</h3>
             <form onSubmit={handleAddProduct}>
-              <div style={{ marginBottom: 10 }}>
+              <div className="form-group">
+                <label className="form-label">Product Name</label>
                 <input
                   type="text"
-                  placeholder="Product Name"
+                  placeholder="Enter product title"
                   value={newProduct.name}
                   onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                  style={{ width: '100%', padding: 8 }}
+                  className="form-input"
                 />
               </div>
-              <div style={{ marginBottom: 10 }}>
+              <div className="form-group">
+                <label className="form-label">Description</label>
                 <textarea
-                  placeholder="Description"
+                  placeholder="Enter details description"
                   value={newProduct.description}
                   onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
-                  style={{ width: '100%', padding: 8, minHeight: 80 }}
+                  className="form-input"
+                  style={{ minHeight: 80, resize: 'vertical' }}
                 />
               </div>
-              <div style={{ marginBottom: 10 }}>
+              <div className="form-group" style={{ marginBottom: 25 }}>
+                <label className="form-label">Price ($)</label>
                 <input
                   type="number"
-                  placeholder="Price"
+                  placeholder="0.00"
                   step="0.01"
                   value={newProduct.price}
                   onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
-                  style={{ width: '100%', padding: 8 }}
+                  className="form-input"
                 />
               </div>
-              <button type="submit" style={{ padding: 10, backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer' }}>Add Product</button>
+              <button type="submit" className="btn btn-success">Publish Product</button>
             </form>
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '2px solid #ddd' }}>
-                <th style={{ textAlign: 'left', padding: 10 }}>Name</th>
-                <th style={{ textAlign: 'left', padding: 10 }}>Price</th>
-                <th style={{ textAlign: 'left', padding: 10 }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map(prod => (
-                <tr key={prod._id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: 10 }}>{prod.name}</td>
-                  <td style={{ padding: 10 }}>${prod.price}</td>
-                  <td style={{ padding: 10 }}>
-                    <button onClick={() => handleDeleteProduct(prod._id)} style={{ color: 'red', cursor: 'pointer', background: 'none', border: 'none' }}>Delete</button>
-                  </td>
+          <h3 style={{ marginBottom: 15 }}>Product List</h3>
+          <div className="table-container">
+            <table className="custom-table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {products.map(prod => (
+                  <tr key={prod._id}>
+                    <td style={{ fontWeight: 600 }}>{prod.name}</td>
+                    <td>${prod.price.toFixed(2)}</td>
+                    <td>
+                      <button 
+                        onClick={() => handleDeleteProduct(prod._id)} 
+                        className="btn btn-danger"
+                        style={{ padding: '6px 12px', fontSize: 12, borderRadius: 6 }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

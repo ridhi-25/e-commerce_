@@ -19,31 +19,37 @@ export default function Login({ onSuccess }) {
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: '50px auto', padding: 20, border: '1px solid #ccc' }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="glass-panel" style={{ maxWidth: 420, margin: '80px auto' }}>
+      <h2 style={{ marginBottom: 25, textAlign: 'center' }}>Welcome Back</h2>
+      {error && (
+        <div style={{ backgroundColor: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: 12, borderRadius: 8, marginBottom: 20, fontSize: 14, border: '1px solid rgba(244, 63, 94, 0.2)' }}>
+          {error}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 10 }}>
+        <div className="form-group">
+          <label className="form-label">Username</label>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Enter your username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={{ width: '100%', padding: 8 }}
+            className="form-input"
             required
           />
         </div>
-        <div style={{ marginBottom: 10 }}>
+        <div className="form-group" style={{ marginBottom: 30 }}>
+          <label className="form-label">Password</label>
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: '100%', padding: 8 }}
+            className="form-input"
             required
           />
         </div>
-        <button type="submit" style={{ width: '100%', padding: 10 }}>Login</button>
+        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Sign In</button>
       </form>
     </div>
   )

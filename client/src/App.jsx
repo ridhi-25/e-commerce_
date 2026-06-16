@@ -39,36 +39,43 @@ export default function App() {
 
   if (!user) {
     return (
-      <div style={{ padding: 20 }}>
-        <h1>E-commerce Store</h1>
-        <div style={{ marginBottom: 20 }}>
-          <button onClick={() => setPage('login')} style={{ marginRight: 10, padding: 8 }}>Login</button>
-          <button onClick={() => setPage('register')} style={{ padding: 8 }}>Register</button>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: 20 }}>
+        <div className="glass-panel" style={{ maxWidth: 450, width: '100%', textAlign: 'center' }}>
+          <h1 style={{ marginBottom: 15, background: 'linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AuraShop</h1>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: 30, fontSize: 16 }}>Your premium destination for style and comfort.</p>
+          <div style={{ display: 'flex', gap: 15, justifyContent: 'center', marginBottom: 20 }}>
+            <button className={`btn ${page === 'login' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setPage('login')} style={{ flex: 1 }}>Sign In</button>
+            <button className={`btn ${page === 'register' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setPage('register')} style={{ flex: 1 }}>Sign Up</button>
+          </div>
+          {page === 'login' && <Login onSuccess={() => setPage('home')} />}
+          {page === 'register' && <Register onSuccess={() => setPage('home')} />}
+          {page !== 'login' && page !== 'register' && <Login onSuccess={() => setPage('home')} />}
         </div>
-        {page === 'login' && <Login onSuccess={() => setPage('home')} />}
-        {page === 'register' && <Register onSuccess={() => setPage('home')} />}
       </div>
     )
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-      <nav style={{ backgroundColor: '#333', color: 'white', padding: 15, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <button onClick={() => setPage('home')} style={{ marginRight: 15, padding: 8, backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontSize: 16 }}>Shop</button>
-          <button onClick={() => setPage('cart')} style={{ marginRight: 15, padding: 8, backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontSize: 16 }}>Cart</button>
+    <div style={{ minHeight: '100vh', paddingBottom: 60 }}>
+      <nav className="navbar">
+        <div className="nav-brand" style={{ cursor: 'pointer' }} onClick={() => setPage('home')}>AuraShop</div>
+        <div className="nav-links">
+          <button onClick={() => setPage('home')} className={`nav-btn ${page === 'home' ? 'active' : ''}`}>Shop</button>
+          <button onClick={() => setPage('cart')} className={`nav-btn ${page === 'cart' ? 'active' : ''}`}>Cart</button>
           {user.role === 'admin' && (
-            <button onClick={() => setPage('admin')} style={{ marginRight: 15, padding: 8, backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontSize: 16 }}>Admin</button>
+            <button onClick={() => setPage('admin')} className={`nav-btn ${page === 'admin' ? 'active' : ''}`} style={{ border: '1px solid rgba(99, 102, 241, 0.4)' }}>Admin Panel</button>
           )}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 15 }}>
-          <span>Welcome, {user.username}!</span>
-          <button onClick={() => { logout(); setPage('home') }} style={{ padding: 8, backgroundColor: '#dc3545', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <span style={{ fontSize: 14, color: 'var(--text-secondary)' }}>
+            Welcome, <strong style={{ color: 'var(--text-primary)' }}>{user.username}</strong>
+          </span>
+          <button onClick={() => { logout(); setPage('home') }} className="btn btn-danger" style={{ padding: '8px 16px', fontSize: 13, borderRadius: 8 }}>Logout</button>
         </div>
       </nav>
 
-      <div style={{ padding: 20 }}>
-        {successMessage && <div style={{ backgroundColor: '#d4edda', color: '#155724', padding: 15, marginBottom: 20, borderRadius: 4 }}>{successMessage}</div>}
+      <div style={{ maxWdth: 1200, margin: '40px auto', padding: '0 20px' }}>
+        {successMessage && <div className="alert-success">{successMessage}</div>}
 
         {page === 'home' && <Home onAddToCart={handleAddToCart} />}
         {page === 'cart' && <Cart onCheckout={() => setPage('checkout')} />}

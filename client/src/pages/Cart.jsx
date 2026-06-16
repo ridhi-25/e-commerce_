@@ -51,42 +51,55 @@ export default function Cart({ onCheckout }) {
   if (!cart || !cart.items) return <div>No cart found</div>
 
   return (
-    <div>
-      <h1>Your Cart</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="glass-panel" style={{ maxWidth: 800, margin: '20px auto' }}>
+      <h1 style={{ marginBottom: 25 }}>Your Shopping Cart</h1>
+      {error && (
+        <div style={{ backgroundColor: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: 12, borderRadius: 8, marginBottom: 20, fontSize: 14 }}>
+          {error}
+        </div>
+      )}
 
       {cart.items.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p style={{ color: 'var(--text-secondary)', fontSize: 16 }}>Your cart is empty. Go add some products!</p>
       ) : (
         <div>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid #ddd' }}>
-                <th style={{ textAlign: 'left', padding: 10 }}>Product</th>
-                <th style={{ textAlign: 'left', padding: 10 }}>Price</th>
-                <th style={{ textAlign: 'left', padding: 10 }}>Quantity</th>
-                <th style={{ textAlign: 'left', padding: 10 }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.items.map(item => (
-                <tr key={item.productId._id} style={{ borderBottom: '1px solid #eee' }}>
-                  <td style={{ padding: 10 }}>{item.productId.name}</td>
-                  <td style={{ padding: 10 }}>${item.price.toFixed(2)}</td>
-                  <td style={{ padding: 10 }}>{item.quantity}</td>
-                  <td style={{ padding: 10 }}>
-                    <button onClick={() => handleRemove(item.productId._id)} style={{ color: 'red', cursor: 'pointer', background: 'none', border: 'none' }}>Remove</button>
-                  </td>
+          <div className="table-container" style={{ marginBottom: 30 }}>
+            <table className="custom-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {cart.items.map(item => (
+                  <tr key={item.productId._id}>
+                    <td style={{ fontWeight: 600 }}>{item.productId.name}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td style={{ color: 'var(--text-secondary)' }}>{item.quantity}</td>
+                    <td>
+                      <button onClick={() => handleRemove(item.productId._id)} className="btn btn-danger" style={{ padding: '6px 12px', fontSize: 12, borderRadius: 6 }}>
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <div style={{ marginTop: 20 }}>
-            <h3>Total: ${cart.total ? cart.total.toFixed(2) : '0.00'}</h3>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <button onClick={handleClear} style={{ padding: 10 }}>Clear Cart</button>
-              <button onClick={() => onCheckout()} style={{ padding: 10, backgroundColor: '#28a745', color: 'white', border: 'none' }}>Checkout</button>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
+            <div>
+              <span style={{ color: 'var(--text-secondary)', fontSize: 14, textTransform: 'uppercase', letterSpacing: 0.5 }}>Estimated Total</span>
+              <h3 style={{ fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', marginTop: 5 }}>
+                ${cart.total ? cart.total.toFixed(2) : '0.00'}
+              </h3>
+            </div>
+            <div style={{ display: 'flex', gap: 15 }}>
+              <button onClick={handleClear} className="btn btn-secondary">Clear Cart</button>
+              <button onClick={() => onCheckout()} className="btn btn-success">Proceed to Checkout</button>
             </div>
           </div>
         </div>

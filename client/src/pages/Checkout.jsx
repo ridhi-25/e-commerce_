@@ -34,25 +34,32 @@ export default function Checkout({ onOrderPlaced }) {
   }
 
   return (
-    <div style={{ maxWidth: 500, margin: '50px auto', padding: 20, border: '1px solid #ccc' }}>
-      <h2>Checkout</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="glass-panel" style={{ maxWidth: 520, margin: '40px auto' }}>
+      <h2 style={{ marginBottom: 20 }}>Checkout</h2>
+      {error && (
+        <div style={{ backgroundColor: 'rgba(244, 63, 94, 0.1)', color: 'var(--danger-color)', padding: 12, borderRadius: 8, marginBottom: 20, fontSize: 14 }}>
+          {error}
+        </div>
+      )}
       <form onSubmit={handleCheckout}>
-        <div style={{ marginBottom: 15 }}>
-          <label>Shipping Address:</label>
+        <div className="form-group" style={{ marginBottom: 25 }}>
+          <label className="form-label">Shipping Address</label>
           <textarea
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            style={{ width: '100%', padding: 10, marginTop: 5, minHeight: 100 }}
+            className="form-input"
+            style={{ minHeight: 100, resize: 'vertical' }}
+            placeholder="Enter your complete delivery address"
             required
           />
         </div>
         <button
           type="submit"
           disabled={loading}
-          style={{ width: '100%', padding: 10, backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer' }}
+          className="btn btn-success"
+          style={{ width: '100%', padding: 14 }}
         >
-          {loading ? 'Processing...' : 'Place Order'}
+          {loading ? 'Processing Transaction...' : 'Place Order'}
         </button>
       </form>
     </div>

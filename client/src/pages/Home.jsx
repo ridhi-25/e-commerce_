@@ -16,19 +16,22 @@ export default function Home({ onAddToCart }) {
 
   return (
     <div>
-      <h1>Shop</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 20 }}>
+      <h1 style={{ marginBottom: 30 }}>Shop Catalog</h1>
+      <div className="product-grid">
         {products.map(p => (
-          <div key={p._id} style={{ border: '1px solid #ddd', padding: 15, borderRadius: 8 }}>
-            <h3>{p.name}</h3>
-            <p>{p.description}</p>
-            <p style={{ fontSize: 18, fontWeight: 'bold' }}>${p.price}</p>
-            <button
-              onClick={() => onAddToCart(p._id, 1)}
-              style={{ width: '100%', padding: 10, backgroundColor: '#007bff', color: 'white', border: 'none', cursor: 'pointer' }}
-            >
-              Add to Cart
-            </button>
+          <div key={p._id} className="product-card">
+            <h3 className="product-title">{p.name}</h3>
+            <p className="product-desc">{p.description}</p>
+            <div className="product-footer">
+              <span className="product-price">${p.price.toFixed(2)}</span>
+              <button
+                onClick={() => onAddToCart(p._id, 1)}
+                className="btn btn-primary"
+                style={{ padding: '8px 16px', fontSize: 13, borderRadius: 8 }}
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
         ))}
       </div>

@@ -18,3 +18,4 @@ server/node_modules/
 client/node_modules/
 .env
 dist/
+mongodb_data/
